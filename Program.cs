@@ -20,7 +20,7 @@ namespace Fac_sort
                 }
                 else
                 {
-                    var val = 80;
+                    var val = 75;
                     // Console.Write("Enter number: ");
                     // var val = Convert.ToInt32(Console.ReadLine());
                     var path = args[0];

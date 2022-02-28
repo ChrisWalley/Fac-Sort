@@ -20,53 +20,22 @@ namespace Fac_sort
                 }
                 else
                 {
-                    string ipath = Directory.GetCurrentDirectory();
-
-                    ipath = args[0];
-
-                    int folderNum = 1;
-
-                    string nextFolder = folderNum.ToString();
-
+                    var path = args[0];
 
                     //MOVING START
 
-                    string[] fileDirect = Directory.GetFiles(ipath, "*.*", SearchOption.AllDirectories);
-
-                    DirectoryInfo d = new DirectoryInfo(ipath);
-
-                    FileInfo[] Files = d.GetFiles("*.*");
-
-                    List<string> fileNames = new List<string>();
-
-                    foreach (FileInfo file in Files)
-                    {
-                        fileNames.Add(file.Name);
-                    }
-
-                    //Console.WriteLine(fileNames.Count + " Files");
-
-                    string[] FileNamesAR = fileNames.ToArray();
-                    Array.Sort(FileNamesAR);
-                    Array.Sort(fileDirect);
-
+                    var d = new DirectoryInfo(path);
+                    var files = d.GetFiles("*.*").OrderBy(file => file.Name).ToList();
+                    
                     //moving facs 
-                    if (FileNamesAR.Length >= 1)
+                    if (files.Any())
                     {
                         Console.WriteLine("Fac Scan");
-                        for (int k = 0; k < FileNamesAR.Length; k++) //moving the images
+                        for (var k = 1; k <= files.Count; k++) //moving the images
                         {
 
-
-                            if (k % 80 == 0)
-                            {
-                                Directory.CreateDirectory(folderNum.ToString());
-
-                                File.Move(fileDirect[k], ipath + @"\" + folderNum.ToString() + @"\" + FileNamesAR[k]);
-                                folderNum = folderNum + 1;
-                                Console.WriteLine(Files[k] + " sorted.");
-                            }
-
+                            var destination = Path.Combine(path, (k % 80 + 1).ToString(), files[k-1].Name);
+                            File.Move(files[k-1].FullName, destination);
                         }
                     }
                     else
@@ -78,7 +47,7 @@ namespace Fac_sort
             }
             catch (Exception e)
             {
-                Console.WriteLine("The process failed: {0}", e.ToString());
+                Console.WriteLine($"The process failed: {e.Message}");
             }
         }
     }

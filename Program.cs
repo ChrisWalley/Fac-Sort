@@ -20,6 +20,9 @@ namespace Fac_sort
                 }
                 else
                 {
+                    
+                    Console.Write("Enter number: ");
+                    var val = Convert.ToInt32(Console.ReadLine());
                     var path = args[0];
 
                     //MOVING START
@@ -34,7 +37,7 @@ namespace Fac_sort
                         for (var k = 1; k <= files.Count; k++) //moving the images
                         {
 
-                            var destination = Path.Combine(path, (k % 80 + 1).ToString(), files[k-1].Name);
+                            var destination = Path.Combine(path, (k % val + 1).ToString(), files[k-1].Name);
                             File.Move(files[k-1].FullName, destination);
                         }
                     }

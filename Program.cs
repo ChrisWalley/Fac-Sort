@@ -20,9 +20,9 @@ namespace Fac_sort
                 }
                 else
                 {
-                    
-                    Console.Write("Enter number: ");
-                    var val = Convert.ToInt32(Console.ReadLine());
+                    var val = 80;
+                    // Console.Write("Enter number: ");
+                    // var val = Convert.ToInt32(Console.ReadLine());
                     var path = args[0];
 
                     //MOVING START

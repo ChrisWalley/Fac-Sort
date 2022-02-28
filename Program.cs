@@ -13,17 +13,19 @@ namespace Fac_sort
         {
             try
             {
-                if (args.Length == 0)
+                if (args.Length != 2)
                 {
-                    Console.WriteLine("please drag and drop folder to sort");
+                    Console.WriteLine("Please enter arugments in form program.exe numberOfFolders folderPath");
                     Console.ReadKey();
                 }
                 else
                 {
-                    var val = 75;
+                    //var val = 75;
                     // Console.Write("Enter number: ");
                     // var val = Convert.ToInt32(Console.ReadLine());
-                    var path = args[0];
+                    
+                    var val = Convert.ToInt32(args[0]);
+                    var path = args[1];
 
                     //MOVING START
 
@@ -36,8 +38,12 @@ namespace Fac_sort
                         Console.WriteLine("Fac Scan");
                         for (var k = 1; k <= files.Count; k++) //moving the images
                         {
-
-                            var destination = Path.Combine(path, (k % val + 1).ToString(), files[k-1].Name);
+                            var folderName = Path.Combine(path, (k % val + 1).ToString());
+                            if (!Directory.Exists(folderName))
+                            {
+                                Directory.CreateDirectory(folderName);
+                            }
+                            var destination = Path.Combine(folderName, files[k-1].Name);
                             File.Move(files[k-1].FullName, destination);
                         }
                     }
